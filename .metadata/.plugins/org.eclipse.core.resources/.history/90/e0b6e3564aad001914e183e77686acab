@@ -1,0 +1,11 @@
+package util;
+
+public class BoxIndexOutOfBoundsException extends RuntimeException{
+	//构造方法
+	public BoxIndexOutOfBoundsException() {}
+	//方法重载
+	public BoxIndexOutOfBoundsException(String msg) {
+		
+	}
+	
+}

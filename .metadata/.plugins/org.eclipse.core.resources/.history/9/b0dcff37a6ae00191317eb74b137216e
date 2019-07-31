@@ -1,0 +1,99 @@
+FROM centos
+ADD nginx-1.4.7.tar.gz /data/tools
+RUN
+	yum -y install gcc gcc-c++ make zlib-devel pcre-devel openssl-devel;\
+	groupadd nginx;\
+	useradd nginx -g nginx -s /sbin/nologin;\
+	cd /data/tools;\
+	tar xvf /data/tools/nginx-1.4.7.tar.gz;\
+	cd nginx-1.4.7;\
+	/data/tools/nginx-1.4.7/configure --prefix=/data/soft/nginx --sbin-path=/data/soft/nginx/sbin/nginx --conf-path=/data/soft/nginx/etc/nginx/nginx.conf --error-log-path=/data/soft/nginx/log/nginx/error.log --http-log-path=/data/soft/nginx/log/nginx/access.log --pid-path=/data/soft/nginx/var/run/nginx/nginx.pid --lock-path=/data/soft/nginx/var/lock/nginx.lock --user=nginx --group=nginx --with-http_ssl_module --with-http_flv_module --with-http_stub_status_module --with-http_gzip_static_module --http-client-body-temp-path=/data/soft/nginx/var/tmp/nginx/client/  --http-proxy-temp-path=/data/soft/nginx/var/tmp/nginx/proxy/ --http-fastcgi-temp-path=/data/soft/nginx/var/tmp/nginx/fcgi/ --http-uwsgi-temp-path=/data/soft/nginx/var/tmp/nginx/uwsgi --http-scgi-temp-path=/data/soft/nginx/var/tmp/nginx/scgi --with-pcre;\
+	make && make install;\
+	mkdir /data/soft/nginx/var/tmp/nginx/client -p;\
+	/data/soft/nginx/sbin/nginx -c /data/soft/nginx/etc/nginx/nginx.conf;\
+	/data/soft/nginx/sbin/nginx -t
+RUN
+	cat > /data/soft/nginx/etc/nginx/nginx.conf <<EOF
+user  nginx;
+worker_processes  8;
+events {
+    worker_connections  1024;
+}
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+    sendfile        on;
+    keepalive_timeout  65;
+  fastcgi_connect_timeout 300;
+  fastcgi_send_timeout 300;
+  fastcgi_read_timeout 300;
+  fastcgi_buffer_size 128k;
+  fastcgi_buffers 4 128k;
+  fastcgi_busy_buffers_size 256k;
+  fastcgi_temp_file_write_size 256k;
+  gzip on;
+  gzip_min_length  1k;
+  gzip_buffers     4 32k;
+  gzip_http_version 1.1;
+  gzip_comp_level 2;
+  gzip_types       text/plain application/x-javascript text/css application/xml;
+  gzip_vary on;
+  gzip_disable "MSIE [1-6].";
+
+  server_names_hash_bucket_size 128;
+  client_max_body_size     100m; 
+  client_header_buffer_size 256k;
+  large_client_header_buffers 4 256k;
+
+    server {
+        listen       80;
+        server_name 127.0.0.1;
+        root /data/webdata;
+        #root   /data/webdata/yhai/public;
+        location / {
+            index  index.html index.htm index.php l.php;
+            if (!-e $request_filename) {
+                rewrite ^/(.*)$ /index.php/$1 last;
+            }
+        }
+
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   html;
+        }
+        location ~ \.php(.*)$  {
+            fastcgi_pass   127.0.0.1:9000;
+            fastcgi_index  index.php;
+            fastcgi_split_path_info  ^((?U).+\.php)(/?.+)$;
+            fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+            fastcgi_param  PATH_INFO  $fastcgi_path_info;
+            fastcgi_param  PATH_TRANSLATED  $document_root$fastcgi_path_info;
+            include        fastcgi_params;
+        }     
+    }
+include /data/soft/nginx/etc/nginx/vhosts/*.conf;
+}
+EOF
+
+RUN
+	cat > /lib/systemd/system/nginx.service <<EOF
+[Unit]  
+Description=nginx  
+After=network.target  
+ 
+[Service]  
+Type=forking  
+ExecStart=/data/soft/nginx/sbin/nginx 
+ExecReload=/data/soft/nginx/sbin/nginx -s reload  
+ExecStop=/data/soft/nginx/sbin/nginx -s stop
+PrivateTmp=true  
+   
+[Install]  
+WantedBy=multi-user.target
+EOF
+
+RUN
+	systemctl enable nginx.service;\
+	systemctl start nginx.service
+expose 80
+CMD ["systemctl start nginx.service"]

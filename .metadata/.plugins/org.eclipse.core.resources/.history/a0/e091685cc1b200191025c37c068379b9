@@ -1,0 +1,13 @@
+package Bank;
+
+public class YoungMan {
+	
+	public void callNumber() {
+		System.out.println("年轻人自己按按钮，拿到号码小票");
+	}
+	
+	public void transact() {
+		System.out.println("去窗口汇款");
+	}
+	
+}

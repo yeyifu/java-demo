@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move element &apos;partition_table.sql&apos; to &apos;sql/src&apos;&#x0D;&#x0A;- Original project: &apos;sql&apos;&#x0D;&#x0A;- Destination element: &apos;sql/src&apos;&#x0D;&#x0A;- Original element: &apos;partition_table.sql&apos;&#x0D;&#x0A;- Update references to refactored element" description="Move file" destination="/src" element1="partition_table.sql" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1563416403914" units="0" version="1.0"/>
+</session>

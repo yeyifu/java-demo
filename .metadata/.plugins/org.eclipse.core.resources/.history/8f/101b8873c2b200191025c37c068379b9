@@ -1,0 +1,27 @@
+package Bank;
+
+public class YoungMan {
+	private String name;
+	public YoungMan() {}
+	public String YoungMan(String name) {
+		return this.name;
+	}
+	public void setNmae(String name) {
+		this.name = name;
+	}
+	public String name() {
+		return this.name;
+	}
+	public void CallNumber() {
+		System.out.println("年轻人自己按按钮，拿到号码小票");
+	}
+	
+	public void transact() {
+		System.out.println("去窗口汇款");
+	}
+	
+	public void leave() {
+		System.out.println("办完后迅速离开");
+	}
+	
+}

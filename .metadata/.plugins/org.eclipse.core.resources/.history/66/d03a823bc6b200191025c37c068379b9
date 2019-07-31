@@ -1,0 +1,16 @@
+package Bank;
+
+public class Test {
+	public static void main(String[] args) {
+		Bank bank = new Bank();
+		OldMan om = new OldMan("长者");
+		bank.profession(om);//银行欢迎进来办理业务
+		System.out.println("---------------");
+		
+		YoungMan ym = new YoungMan("年轻人");
+		bank.profession(ym);
+		
+		Toff toff = new Toff("土豪");
+		bank.profession(toff);
+	}
+}

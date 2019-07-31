@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<list key="CommitDialog.authorValues">
+		<item value="yeyifu &lt;2875541071@qq.com&gt;"/>
+	</list>
+	<list key="CommitDialog.committerValues">
+		<item value="yeyifu &lt;2875541071@qq.com&gt;"/>
+	</list>
+	<section name="org.eclipse.egit.ui.internal.staging.StagingView">
+		<item key="HORIZONTAL_SASH_FORM_WEIGHT" value="500,500"/>
+		<item key="STAGING_SASH_FORM_WEIGHT" value="500,500"/>
+		<item key="sortItemState" value="false"/>
+	</section>
+	<section name="GitCommitMessageComponent">
+		<list key="D:\yyf\git\.git">
+			<item value="true"/>
+			<item value="yeyifu &lt;2875541071@qq.com&gt;"/>
+			<item value="add test.sh&#x0D;&#x0A;&#x0D;&#x0A;"/>
+			<item value="yeyifu &lt;2875541071@qq.com&gt;"/>
+			<item value="cae4735d69a598b694ced7c2e61420ae2070f5ef"/>
+			<item value="0"/>
+			<item value="true"/>
+		</list>
+	</section>
+</section>

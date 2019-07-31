@@ -1,0 +1,25 @@
+
+public class ArrayBox {
+	//定义一个数组接收
+	private int[] elementDate = new int[10];
+	
+	
+	public boolean add(int element) {
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

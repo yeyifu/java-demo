@@ -1,0 +1,63 @@
+FROM centos
+MAINTAINER yyf<2875541071@qq.com>
+
+ADD mysql-5.6.12.tar.gz /data/tools/
+RUN 
+	mkdir -p /data/soft/;\
+	mkdir -p /data/tools;\
+	yum -y install gcc gcc-c++ ncurses-devel perl cmake;\
+	groupadd mysql;\
+	useradd mysql -g mysql -s /sbin/nologin;\
+	cd /data/tools;\
+	tar xvf /data/tools/mysql-5.6.43.tar.gz;\
+	cd mysql-5.6.43;\
+	cmake -DCMAKE_INSTALL_PREFIX=/data/soft/mysql -DMYSQL_UNIX_ADDR=/data/soft/mysql/mysql.sock -DDEFAULT_CHARSET=utf8 -DDEFAULT_COLLATION=utf8_general_ci -DWITH_INNOBASE_STORAGE_ENGINE=1 -DWIT
+H_ARCHIVE_STORAGE_ENGINE=1 -DWITH_BLACKHOLE_STORAGE_ENGINE=1 -DMYSQL_DATADIR=/data/soft/mysql/data -DMYSQL_TCP_PORT=3306 -DSYSCONFDIR=/data/soft/mysql/ -DENABLE_DOWNLOADS=1 -DENABLED_LOCAL_
+INFILE=1;\
+    make;\
+	make install;\
+    chown mysql:mysql /data/soft/mysql -R;\
+	cd /data/soft/mysql;\
+	/data/soft/mysql/scripts/mysql_install_db --user=mysql --datadir=/data/soft/mysql/data
+RUN
+	cat > /data/soft/mysql/my.cnf << EOF
+[mysqld_safe]
+log-error=/data/soft/mysql/mysql.log
+pid-file=/data/soft/mysql/mysql.pid
+[mysqld]
+datadir = /data/soft/mysql/data
+innodb_file_per_table = 1
+log-bin = mysql-bin
+log-bin-index = matser-bin.index
+binlog_format = row
+skip-name-resolve
+pid-file = /data/soft/mysql/mysql.pid
+socket = /data/soft/mysql/mysql.sock
+server_id = 1
+log-slave-updates=true
+gtid-mode=on
+enforce-gtid-consistency=true
+master-info-repository=TABLE
+relay-log-info-repository=TABLE
+sync-master-info=1
+slave-parallel-workers=2
+binlog-checksum=CRC32
+master-verify-checksum=1
+slave-sql-verify-checksum=1
+binlog-rows-query-log-events=1
+port=3306
+max_connections=2500
+sql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES 
+expire_logs_days = 7
+EOF
+RUN
+    cp /data/soft/mysql/support-files/mysql.server /etc/rc.d/init.d/mysqld;\
+	chmod 755 /etc/init.d/mysqld;\
+	chkconfig mysqld on;\
+    sed -i '46s/basedir=/basedir=\/data\/soft\/mysql/g' /etc/rc.d/init.d/mysqld;\
+	sed -i '47s/datadir=/datadir=\/data\/soft\/mysql\/data/g' /etc/rc.d/init.d/mysqld;\
+	sed -i'$\PATH=/data/soft/mysql/bin:/data/soft/mysql/lib:$PATH  export PATH' /etc/profile;\
+	source /etc/profile;\
+	service mysqld start ;\
+	mysql -Bse "set password for 'root'@'localhost' = password('ciopaas_123');"
+ENTRYPOINT chkconfig --add mysqld && chkconfig mysqld on

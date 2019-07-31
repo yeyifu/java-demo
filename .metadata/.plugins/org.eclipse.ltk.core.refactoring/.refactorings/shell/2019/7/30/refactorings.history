@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring accessors="true" comment="Delete element from project &apos;shell&apos;&#x0D;&#x0A;- Original project: &apos;shell&apos;&#x0D;&#x0A;- Original element: &apos;Dockerfile.mysql.java&apos;" description="Delete element" element1="/&lt;Dockerfile{mysql.java" elements="1" flags="589830" id="org.eclipse.jdt.ui.delete" resources="0" stamp="1564034083861" subPackages="false" version="1.0"/>&#x0A;<refactoring comment="将资源“shell/Dockerfile/Dockerfile”重命名为“Dockerfile-mysql”" description="重命名资源“Dockerfile”" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Dockerfile/Dockerfile" name="Dockerfile-mysql" stamp="1564035831616" updateReferences="true"/>
+</session>

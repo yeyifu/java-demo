@@ -1,0 +1,9 @@
+package util;
+
+public class ArrayBox{
+	
+	//用来将用户给定的element存起来，返回值是否存储成功
+	public boolean add(int element) {
+		
+	}
+}

@@ -1,0 +1,5 @@
+GitRepositoriesView.GitDirectories=D\:\\yyf\\git\\.git;
+GitRepositoriesView.GitDirectories.relative=D\:\\yyf\\git\\.git;
+core_defaultRepositoryDir=D\:\\yyf\\git
+core_preferredMergeStrategy=jgit-default-mergeStrategy
+eclipse.preferences.version=1

@@ -1,0 +1,24 @@
+package Bank;
+
+public abstract class Person {
+	
+	private String name;
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getName() {
+		return this.name;
+	}
+	//叫一个号码
+	public abstract void CallNumber();
+		
+	//窗口办理
+	public void transact() {
+		System.out.println("一张限量黑卡，取1000W");
+	}
+		
+	//办理完毕离开
+	public void leave() {
+		System.out.println("办理完毕，提钱离开");
+	}
+}

@@ -1,0 +1,9 @@
+package Bank;
+
+public class Bank {
+	
+	//开门，办理业务
+	public void profession(OldMan om) {
+			System.out.println(om.getName()+"客户进入银行啦！");
+	}
+}

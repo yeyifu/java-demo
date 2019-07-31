@@ -1,0 +1,16 @@
+package util;
+
+public class ArrayBox{
+	
+	//用来将用户给定的element存起来，参数是需要存起来的元素，返回值是否存储成功
+	public boolean add(int element) {
+		
+	}
+	
+	//用来获取给定位置的元素,参数是索引位置，返回是取得的元素
+	public int get(int index) {
+		
+	}
+	
+	//删除指定位置的元素
+}

@@ -1,0 +1,9 @@
+package Bank;
+
+public class Test {
+	public static void main(String[] args) {
+		Bank bank = new Bank();
+		OldMan om = new OldMan();
+		bank.profession(om);//银行欢迎进来办理业务
+	}
+}

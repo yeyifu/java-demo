@@ -1,0 +1,26 @@
+package Bank;
+
+public class Bank {
+	
+	//开门，办理业务
+	public void profession(OldMan om) {
+			System.out.println(om.getName()+"客户进入银行啦！");
+			om.CallNumber();
+			om.transact();
+			om.leave();
+	}
+	public void profession(YoungMan ym) {
+		System.out.println(ym.getName()+"客户进入银行啦！");
+		ym.CallNumber();
+		ym.transact();
+		ym.leave();
+	}
+	
+	public void profession(Toff toff) {
+		System.out.println(toff.getName()+"客户进入银行啦！");
+		toff.CallNumber();
+		toff.transact();
+		toff.leave();
+	}
+	
+}
